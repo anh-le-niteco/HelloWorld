@@ -30,7 +30,9 @@ platform :android do
     gradle(task: "assembleRelease")
     #crashlytics
 
-    
+    set_build_number(
+      3
+    )
 
     # Upload the build to Crashlytics.
     crashlytics(
