@@ -19,7 +19,7 @@ android {
     signingConfigs {
         config {
             keyAlias 'alias_name'
-            keyPassword 'keymyandroid'
+            keyPassword 'Abcd1234'
             storePassword 'Abcd1234'
             storeFile file('/Users/tranlong/helloworld-release-key.keystore')
         }
