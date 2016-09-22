@@ -38,8 +38,7 @@ platform :android do
       build_secret: "104c0cae8d45fe16fa0b74bc56b1fad37713b18519530213aae8a7cbd7cb389a",
       notes: 'Android Build: 2\n',
       groups: ["ci-test"],
-      apk_path: "HelloWorld",
-      crashlytics_path: "./fastlane/crashlytics-devtools.jar"
+      apk_path: "HelloWorld"
     )
 
     upload_symbols_to_crashlytics
