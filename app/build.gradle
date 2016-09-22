@@ -20,7 +20,7 @@ android {
         config {
             keyAlias 'Myandroidkey'
             keyPassword 'keymyandroid'
-            storePassword 'keymyandroid'
+            storePassword 'Abcd1234'
             storeFile file('/Users/tranlong/helloworld-release-key.keystore')
         }
     }
