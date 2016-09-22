@@ -40,7 +40,7 @@ platform :android do
       groups: ["ci-test"]
     )
 
-    upload_symbols_to_crashlytics
+    #upload_symbols_to_crashlytics
 
     # sh "your_script.sh"
     # You can also use other beta testing services here
