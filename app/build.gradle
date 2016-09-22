@@ -21,6 +21,7 @@ android {
             keyAlias 'Myandroidkey'
             keyPassword 'keymyandroid'
             storePassword 'keymyandroid'
+            storeFile file('/Users/tranlong/helloworld-release-key.keystore')
         }
     }
     compileSdkVersion 23
