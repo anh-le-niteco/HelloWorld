@@ -27,7 +27,7 @@ platform :android do
 
   desc "Submit a new Beta Build to Crashlytics Beta"
   lane :beta do
-    gradle(task: "assembleRelease", properties: {'versionCode' => 3})
+    gradle(task: "assembleRelease", properties: {'versionCode' => 4})
     #crashlytics
 
    
@@ -40,7 +40,7 @@ platform :android do
       groups: ["ci-test"]
     )
 
-    #upload_symbols_to_crashlytics
+    upload_symbols_to_crashlytics
 
     # sh "your_script.sh"
     # You can also use other beta testing services here
