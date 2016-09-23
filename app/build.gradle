@@ -21,7 +21,7 @@ android {
             keyAlias 'alias_name'
             keyPassword 'Abcd1234'
             storePassword 'Abcd1234'
-            storeFile file('./helloworld-release-key.keystore')
+            storeFile file('/../helloworld-release-key.keystore')
         }
     }
     compileSdkVersion 23
