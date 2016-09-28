@@ -31,7 +31,7 @@ platform :android do
   lane :beta do
     
 
-    gradle(task: "assembleRelease", build_type: 'Release')
+    gradle(task: "assembleRelease", properties: {'versionCode' => 1})
     
 
     crashlytics(
