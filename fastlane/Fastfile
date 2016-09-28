@@ -30,9 +30,17 @@ platform :android do
 
   lane :beta do
     
-    increment_build_number
+    # Get the last version code and increment it.
+    versionCode = File.read("metadata/versionCode").to_i
+    versionCode = versionCode +1
 
-    gradle(task: "assembleRelease", properties: {'versionCode' => 4})
+    f = File.new("metadata/versionCode", "w")
+    f.write(versionCode)
+    f.close
+
+    gradle(task: "assemble", build_type: "Release",  properties: { 'versionCode' => versionCode })
+
+    #gradle(task: "assembleRelease", properties: {'versionCode' => 4})
     
 
     crashlytics(
