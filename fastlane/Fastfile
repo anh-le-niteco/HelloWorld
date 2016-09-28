@@ -13,123 +13,46 @@
 # Update this, if you use features of a newer version
 fastlane_version "1.103.0"
 
-default_platform :ios
+default_platform :android
 
-MAIN_INFOPLIST = "../HelloWorld/Info.plist"
-
-
-platform :ios do
+platform :android do
   before_all do
     # ENV["SLACK_URL"] = "https://hooks.slack.com/services/..."
-    
     
   end
 
   desc "Runs all the tests"
   lane :test do
-    scan
+    gradle(task:"test")
   end
 
-  desc "Submit a new Beta Build to Apple TestFlight"
-  desc "This will also make sure the profile is up to date"
+  desc "Submit a new Beta Build to Crashlytics Beta"
+
   lane :beta do
-    ensure_git_status_clean
-    # ensure_git_branch(branch: 'release')
+    
+    gradle(task: "assembleRelease", properties: {'versionCode' => 4})
+    
 
-    # Get and format all the commits since the last version bump commit.
-    notes = changelog_from_git_commits
-    # Bump the CFBundleVersion
-    new_build_number = next_version
-
-    set_build_number(
-      new_build_number
-    )
-
-    cocoapods
-
-    match(app_identifier: "se.niteco.helloworld", type: "development", readonly: true)
-
-    set_build_number(
-      new_build_number
-    )
-
-    # There's a bug in the new Xcode 7 API that causes problems. This forces use of the old API.
-    gym(
-      use_legacy_build_api: false,
-      scheme: 'HelloWorld',
-      archive_path: "./gym_archive"
-    )
-
-    # Upload the build to Crashlytics.
     crashlytics(
-      api_token: "d241e3297a82297479a8c29751465eea577f9772",
-      build_secret: "104c0cae8d45fe16fa0b74bc56b1fad37713b18519530213aae8a7cbd7cb389a",
-      notes: 'iOS Build: 5\n',
-      groups: ["ci-test"]
+       groups: "ci-test",
+       api_token: "d241e3297a82297479a8c29751465eea577f9772",
+       build_secret: "104c0cae8d45fe16fa0b74bc56b1fad37713b18519530213aae8a7cbd7cb389a"
     )
 
-    upload_symbols_to_crashlytics
+    desc "Deploy a new version to the Google Play"
+    lane :deploy do
+    gradle(task: "assembleRelease")
+    supply
+
+
   end
-
-  desc "Deploy a new version to the App Store"
-  lane :release do
-    # match(type: "appstore")
-    # snapshot
-    gym # Build your app - more options available
-    deliver(force: true)
-    # frameit
   end
-
-  # You can define as many lanes as you want
-
-  after_all do |lane|
-    # This block is called, only if the executed lane was successful
-
-    # slack(
-    #   message: "Successfully deployed new App Update."
-    # )
-  end
-
-  error do |lane, exception|
-    # slack(
-    #   message: exception.message,
-    #   success: false
-    # )
-  end
-
-#Helper functions
-  def next_version
-    Time.now.getlocal('+07:00').strftime("%y%m%d%H%M")
-  end
-
-  def get_build_number
-    `/usr/libexec/PlistBuddy -c 'Print CFBundleVersion' '#{MAIN_INFOPLIST}'`.strip
-  end
-
-  def get_version_number
-    `/usr/libexec/PlistBuddy -c 'Print CFBundleShortVersionString' '#{MAIN_INFOPLIST}'`.strip
-  end
-def set_build_number(build_number = nil)
-    raise if build_number.nil?
-    puts "Setting build number to #{build_number}"
-    Actions.lane_context[SharedValues::BUILD_NUMBER] = build_number
-    sh("/usr/libexec/PlistBuddy -c 'Set CFBundleVersion #{build_number}' '#{MAIN_INFOPLIST}'")
-  end
-
-  def set_version_number(version_number = nil)
-    raise if version_number.nil?
-    puts "Setting version number to #{version_number}"
-    Actions.lane_context[SharedValues::VERSION_NUMBER] = version_number
-    sh("/usr/libexec/PlistBuddy -c 'Set CFBundleShortVersionString #{version_number}' '#{MAIN_INFOPLIST}'")
-    sh("/usr/libexec/PlistBuddy -c 'Set CFBundleShortVersionString #{version_number}' '#{WATCHKIT_INFOPLIST}'")
-    sh("/usr/libexec/PlistBuddy -c 'Set CFBundleShortVersionString #{version_number}' '#{WATCHKIT_EXTENSION_INFOPLIST}'")
-  end
-
 end
 
+  
 
 # More information about multiple platforms in fastlane: https://github.com/fastlane/fastlane/blob/master/fastlane/docs/Platforms.md
 # All available actions: https://github.com/fastlane/fastlane/blob/master/fastlane/docs/Actions.md
 
 # fastlane reports which actions are used
-# No personal data is recorded. Learn more at https://github.com/fastlane/enhancer
+# No personal data is sent or shared. Learn more at https://github.com/fastlane/enhancer
