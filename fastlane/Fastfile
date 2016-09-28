@@ -38,9 +38,7 @@ platform :android do
     f.write(versionCode)
     f.close
 
-    gradle(task: "assemble", build_type: "Release",  properties: { 'versionCode' => versionCode })
-
-    #gradle(task: "assembleRelease", properties: {'versionCode' => 4})
+    gradle(task: "assembleRelease", properties: {'versionCode' => versionCode})
     
 
     crashlytics(
