@@ -44,6 +44,7 @@ platform :android do
     lane :deploy do
     gradle(task: "assembleRelease")
     supply
+    end
 
     slack(
       message: "Android New Development Build available for download :rocket:",
