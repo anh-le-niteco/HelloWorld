@@ -58,7 +58,7 @@ platform :android do
     )
   end
   error do |lane, exception|
-    clean_build_artifacts
+
     slack(message: exception.to_s, success: false)
     notify("Lane #{lane} failed to complete.")
 
