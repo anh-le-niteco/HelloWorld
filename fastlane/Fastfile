@@ -50,23 +50,16 @@ platform :android do
       success: true,
       channel: "#continuous-deployment",
       payload: {
-        #'Build version' => get_version_number,
-        #'Build number' => new_build_number,
         'Last Commit Message' => last_git_commit[:message],
         'Author' => last_git_commit[:author]
       },
       default_payloads: []
     )
-
-
   end
-  
   error do |lane, exception|
     clean_build_artifacts
     slack(message: exception.to_s, success: false)
     notify("Lane #{lane} failed to complete.")
-
-  end
 
   end
 end
