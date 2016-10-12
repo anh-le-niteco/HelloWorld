@@ -30,7 +30,7 @@ platform :android do
 
   lane :beta do
     
-
+	gradle(task: "testDebug", properties: {'versionCode' => 1})
     gradle(task: "assembleRelease", properties: {'versionCode' => 1})
     
 
