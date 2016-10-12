@@ -17,7 +17,7 @@ default_platform :android
 
 platform :android do
   before_all do
-    # ENV["SLACK_URL"] = "https://hooks.slack.com/services/..."
+     ENV["SLACK_URL"] = "https://hooks.slack.com/services/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"
     
   end
 
@@ -45,8 +45,29 @@ platform :android do
     gradle(task: "assembleRelease")
     supply
 
+    slack(
+      message: "Android New Development Build available for download :rocket:",
+      success: true,
+      channel: "#continuous-deployment",
+      payload: {
+        #'Build version' => get_version_number,
+        #'Build number' => new_build_number,
+        'Last Commit Message' => last_git_commit[:message],
+        'Author' => last_git_commit[:author]
+      },
+      default_payloads: []
+    )
+
 
   end
+  
+  error do |lane, exception|
+    clean_build_artifacts
+    slack(message: exception.to_s, success: false)
+    notify("Lane #{lane} failed to complete.")
+
+  end
+
   end
 end
 
