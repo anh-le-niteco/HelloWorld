@@ -78,7 +78,4 @@ dependencies {
         testClassesDir = project.sourceSets.unitTest.output.classesDir
         classpath = project.sourceSets.unitTest.runtimeClasspath
     }
-
-    build.dependsOn unitTest
-
 }
