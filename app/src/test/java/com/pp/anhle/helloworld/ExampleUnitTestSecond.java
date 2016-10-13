@@ -1,0 +1,15 @@
+package com.pp.anhle.helloworld;
+
+import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
+
+/**
+ * To work on unit tests, switch the Test Artifact in the Build Variants view.
+ */
+public class ExampleUnitTestSecond {
+    @Test
+    public void addition_isWrong() throws Exception {
+        assertEquals(4, 2 + 5);
+    }
+}
