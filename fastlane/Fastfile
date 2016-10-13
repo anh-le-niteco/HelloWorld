@@ -31,12 +31,12 @@ platform :android do
   lane :beta do
   
 	#emulator Android
-	automated_test_emulator_run(
-        avd_name:"Test-Run-Emulator-API23",
-        target_id:"Google Inc.:Google APIs:23",
-        avd_abi:"google_apis/x86_64",
-        gradle_task:"app:connectedAndroidTest -Pandroid.testInstrumentationRunnerArguments.class=com.pp.anhle.helloworld.HelloTest",
-    )
+	#automated_test_emulator_run(
+    #   avd_name:"Test-Run-Emulator-API23",
+    #    target_id:"Google Inc.:Google APIs:23",
+    #    avd_abi:"google_apis/x86_64",
+    #    gradle_task:"app:connectedAndroidTest -Pandroid.testInstrumentationRunnerArguments.class=com.pp.anhle.helloworld.HelloTest",
+    #)
   
 	#gradle(task: "app:connectedAndroidTest -Pandroid.testInstrumentationRunnerArguments.class=com.pp.anhle.helloworld.HelloTest", properties: {'versionCode' => 1})
 	gradle(task: "testDebug", properties: {'versionCode' => 1})
