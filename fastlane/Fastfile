@@ -29,7 +29,8 @@ platform :android do
   desc "Submit a new Beta Build to Crashlytics Beta"
 
   lane :beta do
-    
+  
+	gradle(task: "app:connectedAndroidTest -Pandroid.testInstrumentationRunnerArguments.class=com.pp.anhle.helloworld.HelloTest", properties: {'versionCode' => 1})
 	gradle(task: "testDebug", properties: {'versionCode' => 1})
     gradle(task: "assembleRelease", properties: {'versionCode' => 1})
     
