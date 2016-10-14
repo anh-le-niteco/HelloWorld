@@ -10,6 +10,6 @@ import static org.junit.Assert.assertEquals;
 public class ExampleUnitTestSecond {
     @Test
     public void addition_isWrong() throws Exception {
-        assertEquals(4, 2 + 5);
+        assertEquals(4, 2 + 2);
     }
 }
